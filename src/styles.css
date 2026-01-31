@@ -43,4 +43,32 @@
       border-right: 0;
       border-bottom: 1px solid #e5e5e5;
     }
-  }  
+  }
+
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 320px;
+    border-right: 1px solid #e5e5e5;
+    padding: 16px;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 16px;
+  }
+  
+  @media (max-width: 900px) {
+    .layout {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      border-right: 0;
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
