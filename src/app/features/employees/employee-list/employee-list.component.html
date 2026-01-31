@@ -1,0 +1,10 @@
+<h3>Employees</h3>
+
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<ul>
+  <li *ngFor="let emp of employees">
+    {{ emp.name }} ({{ emp.role }}) - {{ emp.status }}
+  </li>
+</ul>
