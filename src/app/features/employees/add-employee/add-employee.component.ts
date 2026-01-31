@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EmployeeService } from '../../../core/services/employee.service';
 
@@ -10,6 +10,8 @@ import { EmployeeService } from '../../../core/services/employee.service';
   templateUrl: './add-employee.component.html'
 })
 export class AddEmployeeComponent {
+  @Output() employeeCreated = new EventEmitter<void>();
+
   name = '';
   role = '';
   loading = false;
@@ -35,5 +37,7 @@ export class AddEmployeeComponent {
 
     this.name = '';
     this.role = '';
+
+    this.employeeCreated.emit();
   }
 }
