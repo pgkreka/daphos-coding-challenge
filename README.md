@@ -1,27 +1,89 @@
-# DaphosCodingChallenge
+# DaphOS Frontend Coding Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+## Overview
+This project is a single page application built as part of the DaphOS frontend coding challenge.  
+The application allows managing employees and their working shifts, including summary metrics derived from the recorded work times.
 
-## Development server
+The goal of this implementation is not completeness or visual perfection, but a clear structure, readable code, and an architecture that can easily be extended with a real backend API.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+---
 
-## Code scaffolding
+## Setup Instructions
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisites
+- Node.js 20 LTS
+- npm 10
 
-## Build
+### Install dependencies
+npm install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Run locally
+npm start
 
-## Running unit tests
+Open the application at:
+http://localhost:4200
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Scope of the Application
 
-## Running end-to-end tests
+### Employees
+- List all employees with name, role and status
+- Create new employees
+- Edit existing employees
+- Deactivate employees (soft deactivation)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Shifts
+- Display shifts per employee
+- Create, edit and delete shifts
+- Validation errors are handled and displayed in the UI
 
-## Further help
+### Summary per Employee
+The following metrics are calculated and displayed per employee:
+- total_shifts
+- total_hours_worked
+- total_break_hours
+- average_work_length
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+All summary values are derived from the employee's recorded shifts.
+
+---
+
+## UX and UI
+- Clear master detail layout with employee list and details view
+- User friendly validation messages
+- Basic responsive layout for smaller screens
+
+---
+
+## Technical Approach
+
+- Framework: Angular
+- Language: TypeScript
+- Styling: SCSS
+- Data persistence: Browser local storage
+
+The application is structured with a service layer that simulates backend behavior.  
+Components do not directly interact with local storage, which allows replacing the mocked services with real HTTP API calls in the future.
+
+Validation errors are simulated in the service layer and returned in a backend like error format.
+
+---
+
+## Data Storage
+Data is stored locally in the browser using versioned local storage keys.
+
+- daphos_employees_v1
+- daphos_shifts_v1
+
+---
+
+## Example Data Models
+
+### Employee
+```json
+{
+  "id": "emp_1",
+  "name": "Maria Papadopoulou",
+  "role": "Nurse",
+  "status": "active"
+}
+
