@@ -3,8 +3,18 @@
 <div *ngIf="loading">Loading...</div>
 <div *ngIf="error">{{ error }}</div>
 
-<ul>
-  <li *ngFor="let emp of employees">
-    {{ emp.name }} ({{ emp.role }}) - {{ emp.status }}
+<ul class="list" *ngIf="!loading">
+  <li
+    class="list-item"
+    *ngFor="let emp of employees"
+    (click)="selectEmployee(emp.id)"
+    [class.selected]="emp.id === selectedId"
+  >
+    <div class="name">{{ emp.name }}</div>
+    <div class="meta">{{ emp.role }} • {{ emp.status }}</div>
   </li>
 </ul>
+
+<div *ngIf="!loading && employees.length === 0">
+  No employees yet.
+</div>

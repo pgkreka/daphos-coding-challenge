@@ -1,9 +1,24 @@
 <div class="layout">
   <aside class="sidebar">
-    <app-employee-list [refreshToken]="refreshToken"></app-employee-list>
+    <app-employee-list
+      [refreshToken]="refreshToken"
+      (employeeSelected)="onEmployeeSelected($event)"
+    ></app-employee-list>
   </aside>
 
   <main class="content">
     <app-add-employee (employeeCreated)="onEmployeeCreated()"></app-add-employee>
+
+    <hr />
+
+    <div *ngIf="!selectedEmployeeId">
+      Select an employee from the list to edit or deactivate.
+    </div>
+
+    <app-employee-update-deactivate
+      *ngIf="selectedEmployeeId"
+      [employeeId]="selectedEmployeeId"
+      (changed)="onEmployeeUpdatedOrDeactivated()"
+    ></app-employee-update-deactivate>
   </main>
 </div>

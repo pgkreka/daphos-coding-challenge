@@ -1,0 +1,27 @@
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+.list-item {
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.list-item.selected {
+    border-color: #333;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.meta {
+    color: #666;
+    font-size: 12px;
+    margin-top: 2px;
+}  
