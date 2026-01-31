@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Employee } from '../../../core/models/employee.model';
 import { EmployeeService } from '../../../core/services/employee.service';
 
@@ -11,10 +11,13 @@ import { EmployeeService } from '../../../core/services/employee.service';
 })
 export class EmployeeListComponent implements OnInit, OnChanges {
   @Input() refreshToken = 0;
+  @Output() employeeSelected = new EventEmitter<string>();
 
   employees: Employee[] = [];
   loading = false;
   error: string | null = null;
+
+  selectedId: string | null = null;
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -28,6 +31,11 @@ export class EmployeeListComponent implements OnInit, OnChanges {
     }
   }
 
+  selectEmployee(id: string): void {
+    this.selectedId = id;
+    this.employeeSelected.emit(id);
+  }
+
   async loadEmployees(): Promise<void> {
     this.loading = true;
     this.error = null;
@@ -38,6 +46,9 @@ export class EmployeeListComponent implements OnInit, OnChanges {
 
     if (result.ok) {
       this.employees = result.data;
+      if (this.selectedId && !this.employees.some(e => e.id === this.selectedId)) {
+        this.selectedId = null;
+      }
     } else {
       this.error = result.error.message;
     }

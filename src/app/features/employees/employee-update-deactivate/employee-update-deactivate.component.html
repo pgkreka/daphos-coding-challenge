@@ -1,0 +1,37 @@
+<h3>Edit employee</h3>
+
+<div *ngIf="loading">Loading...</div>
+
+<div *ngIf="!loading && !employee">
+  Employee not found.
+</div>
+
+<div *ngIf="!loading && employee">
+  <div *ngIf="error">{{ error }}</div>
+
+  <div>
+    <label>Name</label><br />
+    <input [(ngModel)]="name" name="name" />
+    <div *ngIf="fieldErrors['name']">{{ fieldErrors['name'] }}</div>
+  </div>
+
+  <div style="margin-top: 12px;">
+    <label>Role</label><br />
+    <input [(ngModel)]="role" name="role" />
+    <div *ngIf="fieldErrors['role']">{{ fieldErrors['role'] }}</div>
+  </div>
+
+  <div style="margin-top: 16px; display: flex; gap: 10px;">
+    <button (click)="save()" [disabled]="saving || employee.status === 'inactive'">
+      {{ saving ? 'Saving...' : 'Save' }}
+    </button>
+
+    <button (click)="deactivate()" [disabled]="saving || employee.status === 'inactive'">
+      Deactivate
+    </button>
+  </div>
+
+  <div style="margin-top: 12px;" *ngIf="employee.status === 'inactive'">
+    This employee is inactive.
+  </div>
+</div>
