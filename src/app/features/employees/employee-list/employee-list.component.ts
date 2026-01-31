@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EmployeeService } from '../../../core/services/employee.service';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Employee } from '../../../core/models/employee.model';
+import { EmployeeService } from '../../../core/services/employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -9,7 +9,9 @@ import { Employee } from '../../../core/models/employee.model';
   imports: [CommonModule],
   templateUrl: './employee-list.component.html'
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeListComponent implements OnInit, OnChanges {
+  @Input() refreshToken = 0;
+
   employees: Employee[] = [];
   loading = false;
   error: string | null = null;
@@ -20,9 +22,18 @@ export class EmployeeListComponent implements OnInit {
     this.loadEmployees();
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['refreshToken'] && !changes['refreshToken'].firstChange) {
+      this.loadEmployees();
+    }
+  }
+
   async loadEmployees(): Promise<void> {
     this.loading = true;
+    this.error = null;
+
     const result = await this.employeeService.list();
+
     this.loading = false;
 
     if (result.ok) {

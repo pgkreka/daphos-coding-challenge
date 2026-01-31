@@ -1,9 +1,9 @@
 <div class="layout">
   <aside class="sidebar">
-    <app-employee-list></app-employee-list>
+    <app-employee-list [refreshToken]="refreshToken"></app-employee-list>
   </aside>
 
   <main class="content">
-    <app-add-employee></app-add-employee>
+    <app-add-employee (employeeCreated)="onEmployeeCreated()"></app-add-employee>
   </main>
 </div>
