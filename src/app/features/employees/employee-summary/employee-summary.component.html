@@ -1,0 +1,11 @@
+<h3>Summary</h3>
+
+<div *ngIf="loading">Calculating...</div>
+<div *ngIf="error">{{ error }}</div>
+
+<div *ngIf="!loading && !error">
+  <div>Total shifts: {{ summary.total_shifts }}</div>
+  <div>Total hours worked: {{ summary.total_hours_worked }}</div>
+  <div>Total break hours: {{ summary.total_break_hours }}</div>
+  <div>Average work length: {{ summary.average_work_length }}</div>
+</div>

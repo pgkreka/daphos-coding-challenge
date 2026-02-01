@@ -15,6 +15,14 @@
       Select an employee from the list to edit or deactivate.
     </div>
 
+    <app-employee-summary
+      *ngIf="selectedEmployeeId"
+      [employeeId]="selectedEmployeeId"
+      [refreshToken]="refreshToken"
+    ></app-employee-summary>
+
+    <hr />
+
     <app-employee-update-deactivate
       *ngIf="selectedEmployeeId"
       [employeeId]="selectedEmployeeId"
