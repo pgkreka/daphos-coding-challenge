@@ -7,7 +7,8 @@ import { EmployeeService } from '../../../core/services/employee.service';
   selector: 'app-add-employee',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './add-employee.component.html'
+  templateUrl: './add-employee.component.html',
+  styleUrl: './add-employee.component.css'
 })
 export class AddEmployeeComponent {
   @Output() employeeCreated = new EventEmitter<void>();

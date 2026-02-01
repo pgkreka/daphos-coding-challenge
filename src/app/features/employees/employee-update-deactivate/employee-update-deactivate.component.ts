@@ -8,7 +8,8 @@ import { EmployeeService } from '../../../core/services/employee.service';
   selector: 'app-employee-update-deactivate',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './employee-update-deactivate.component.html'
+  templateUrl: './employee-update-deactivate.component.html',
+  styleUrl: './employee-update-deactivate.component.css'
 })
 export class EmployeeUpdateDeactivateComponent implements OnChanges {
   @Input() employeeId: string | null = null;

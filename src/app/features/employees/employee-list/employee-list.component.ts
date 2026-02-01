@@ -7,7 +7,8 @@ import { EmployeeService } from '../../../core/services/employee.service';
   selector: 'app-employee-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './employee-list.component.html'
+  templateUrl: './employee-list.component.html',
+  styleUrl: './employee-list.component.css'
 })
 export class EmployeeListComponent implements OnInit, OnChanges {
   @Input() refreshToken = 0;

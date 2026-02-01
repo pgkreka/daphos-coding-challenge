@@ -4,15 +4,19 @@ import { AddEmployeeComponent } from './features/employees/add-employee/add-empl
 import { EmployeeListComponent } from './features/employees/employee-list/employee-list.component';
 import { EmployeeUpdateDeactivateComponent } from './features/employees/employee-update-deactivate/employee-update-deactivate.component';
 import { EmployeeShiftsComponent } from './features/shifts/employee-shifts/employee-shifts.component';
+import { EmployeeSummaryComponent } from './features/employees/employee-summary/employee-summary.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, 
-            EmployeeListComponent, 
-            AddEmployeeComponent, 
-            EmployeeUpdateDeactivateComponent, 
-            EmployeeShiftsComponent],
+  imports: [
+    CommonModule, 
+    EmployeeListComponent, 
+    AddEmployeeComponent, 
+    EmployeeUpdateDeactivateComponent, 
+    EmployeeShiftsComponent,
+    EmployeeSummaryComponent
+  ],
   templateUrl: './app.component.html'
 })
 export class AppComponent {

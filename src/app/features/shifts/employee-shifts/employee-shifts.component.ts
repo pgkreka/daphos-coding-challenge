@@ -10,7 +10,8 @@ type FieldErrors = Record<string, string>;
   selector: 'app-employee-shifts',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './employee-shifts.component.html'
+  templateUrl: './employee-shifts.component.html',
+  styleUrl: './employee-shifts.component.css'
 })
 export class EmployeeShiftsComponent implements OnChanges {
   @Input() employeeId: string | null = null;
