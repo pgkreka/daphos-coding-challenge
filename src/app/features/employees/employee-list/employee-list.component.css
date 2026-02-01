@@ -16,6 +16,10 @@
     border-color: #333;
 }
 
+.list-item.inactive {
+  opacity: 0.6;
+}
+
 .name {
     font-weight: 600;
 }

@@ -4,6 +4,11 @@
   Select an employee to manage shifts.
 </div>
 
+<div *ngIf="isEmployeeInactive" 
+      style="margin-top: 10px; padding: 10px; border: 1px solid #e5e5e5; border-radius: 8px;">
+  This employee is inactive. Shifts are read only.
+</div>
+
 <div *ngIf="employeeId">
   <div *ngIf="loading">Loading shifts...</div>
   <div *ngIf="error">{{ error }}</div>
@@ -41,11 +46,12 @@
       </div>
 
       <div style="margin-top: 12px; display: flex; gap: 10px;">
-        <button type="submit" [disabled]="saving">
+        <button type="submit" [disabled]="saving || isEmployeeInactive">
           {{ saving ? 'Saving...' : (isEditing ? 'Save' : 'Add') }}
         </button>
 
-        <button type="button" *ngIf="isEditing" (click)="cancelEdit()" [disabled]="saving">
+        <button type="button" *ngIf="isEditing" 
+                (click)="cancelEdit()" [disabled]="saving || isEmployeeInactive">
           Cancel
         </button>
       </div>
@@ -68,8 +74,12 @@
       </div>
 
       <div style="margin-top: 10px; display: flex; gap: 10px;">
-        <button type="button" (click)="startEdit(s)" [disabled]="saving">Edit</button>
-        <button type="button" (click)="deleteShift(s.id)" [disabled]="saving">Delete</button>
+        <button type="button" (click)="startEdit(s)" 
+                [disabled]="saving || isEmployeeInactive">Edit
+        </button>
+        <button type="button" (click)="deleteShift(s.id)" 
+                [disabled]="saving || isEmployeeInactive">Delete
+        </button>
       </div>
     </li>
   </ul>

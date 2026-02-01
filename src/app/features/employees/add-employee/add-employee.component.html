@@ -6,11 +6,13 @@
   <div>
     <label>Name</label><br />
     <input [(ngModel)]="name" name="name" required />
+    <div *ngIf="fieldErrors['name']">{{ fieldErrors['name'] }}</div>
   </div>
 
   <div>
     <label>Role</label><br />
     <input [(ngModel)]="role" name="role" required />
+    <div *ngIf="fieldErrors['role']">{{ fieldErrors['role'] }}</div>
   </div>
 
   <button type="submit" [disabled]="loading">
