@@ -3,11 +3,16 @@ import { Component } from '@angular/core';
 import { AddEmployeeComponent } from './features/employees/add-employee/add-employee.component';
 import { EmployeeListComponent } from './features/employees/employee-list/employee-list.component';
 import { EmployeeUpdateDeactivateComponent } from './features/employees/employee-update-deactivate/employee-update-deactivate.component';
+import { EmployeeShiftsComponent } from './features/shifts/employee-shifts/employee-shifts.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, EmployeeListComponent, AddEmployeeComponent, EmployeeUpdateDeactivateComponent],
+  imports: [CommonModule, 
+            EmployeeListComponent, 
+            AddEmployeeComponent, 
+            EmployeeUpdateDeactivateComponent, 
+            EmployeeShiftsComponent],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
@@ -23,6 +28,10 @@ export class AppComponent {
   }
 
   onEmployeeUpdatedOrDeactivated(): void {
+    this.refreshToken++;
+  }
+
+  onShiftsChanged(): void {
     this.refreshToken++;
   }
 }

@@ -1,0 +1,76 @@
+<h3>Shifts</h3>
+
+<div *ngIf="!employeeId">
+  Select an employee to manage shifts.
+</div>
+
+<div *ngIf="employeeId">
+  <div *ngIf="loading">Loading shifts...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div style="margin-top: 12px;">
+    <h4>{{ isEditing ? 'Edit shift' : 'Add shift' }}</h4>
+
+    <div *ngIf="fieldErrors && (fieldErrors | keyvalue).length > 0" style="margin-bottom: 8px;">
+      Please fix the highlighted fields.
+    </div>
+
+    <form (ngSubmit)="submit()">
+      <div>
+        <label>Date</label><br />
+        <input type="date" [(ngModel)]="date" name="date" />
+        <div *ngIf="fieldErrors['date']">{{ fieldErrors['date'] }}</div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <label>Start time</label><br />
+        <input type="time" [(ngModel)]="startTime" name="startTime" />
+        <div *ngIf="fieldErrors['startTime']">{{ fieldErrors['startTime'] }}</div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <label>End time</label><br />
+        <input type="time" [(ngModel)]="endTime" name="endTime" />
+        <div *ngIf="fieldErrors['endTime']">{{ fieldErrors['endTime'] }}</div>
+      </div>
+
+      <div style="margin-top: 10px;">
+        <label>Break minutes</label><br />
+        <input type="number" min="0" [(ngModel)]="breakMinutes" name="breakMinutes" />
+        <div *ngIf="fieldErrors['breakMinutes']">{{ fieldErrors['breakMinutes'] }}</div>
+      </div>
+
+      <div style="margin-top: 12px; display: flex; gap: 10px;">
+        <button type="submit" [disabled]="saving">
+          {{ saving ? 'Saving...' : (isEditing ? 'Save' : 'Add') }}
+        </button>
+
+        <button type="button" *ngIf="isEditing" (click)="cancelEdit()" [disabled]="saving">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <hr style="margin: 18px 0;" />
+
+  <div *ngIf="!loading && shifts.length === 0">
+    No shifts yet.
+  </div>
+
+  <ul *ngIf="!loading && shifts.length > 0" style="list-style: none; padding: 0; margin: 0;">
+    <li *ngFor="let s of shifts" style="border: 1px solid #e5e5e5; border-radius: 8px; padding: 10px; margin-bottom: 8px;">
+      <div style="font-weight: 600;">
+        {{ s.date }} {{ s.startTime }} to {{ s.endTime }}
+      </div>
+      <div style="color: #666; font-size: 12px; margin-top: 2px;">
+        Break: {{ s.breakMinutes }} min
+      </div>
+
+      <div style="margin-top: 10px; display: flex; gap: 10px;">
+        <button type="button" (click)="startEdit(s)" [disabled]="saving">Edit</button>
+        <button type="button" (click)="deleteShift(s.id)" [disabled]="saving">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>
