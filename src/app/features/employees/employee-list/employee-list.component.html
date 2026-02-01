@@ -1,7 +1,7 @@
 <h3>Employees</h3>
 
 <div *ngIf="loading">Loading...</div>
-<div *ngIf="error">{{ error }}</div>
+<div class="error" *ngIf="error">{{ error }}</div>
 
 <ul class="list" *ngIf="!loading">
   <li

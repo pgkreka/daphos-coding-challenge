@@ -10,14 +10,20 @@
     border-radius: 8px;
     margin-bottom: 8px;
     cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .list-item.selected {
+    background-color: #f0f0f0;
     border-color: #333;
 }
 
 .list-item.inactive {
   opacity: 0.6;
+}
+
+.list-item:hover {
+  background-color: #f5f5f5;
 }
 
 .name {

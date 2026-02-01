@@ -11,7 +11,7 @@
 
 <div *ngIf="employeeId">
   <div *ngIf="loading">Loading shifts...</div>
-  <div *ngIf="error">{{ error }}</div>
+  <div class="error" *ngIf="error">{{ error }}</div>
 
   <div style="margin-top: 12px;">
     <h4>{{ isEditing ? 'Edit shift' : 'Add shift' }}</h4>

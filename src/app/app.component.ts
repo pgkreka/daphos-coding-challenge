@@ -19,7 +19,8 @@ import { EmployeeSummaryComponent } from './features/employees/employee-summary/
     EmployeeShiftsComponent,
     EmployeeSummaryComponent
   ],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
   refreshToken = 0;

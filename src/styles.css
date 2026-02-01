@@ -72,3 +72,47 @@
       border-bottom: 1px solid #e5e5e5;
     }
   }
+
+  button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  button:hover:not(:disabled) {
+    background: #f3f3f3;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  input {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 240px;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .error {
+    color: #b00020;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 24px 0;
+  }
+
+

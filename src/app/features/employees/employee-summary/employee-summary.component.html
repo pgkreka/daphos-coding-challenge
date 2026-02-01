@@ -1,7 +1,7 @@
 <h3>Summary</h3>
 
 <div *ngIf="loading">Calculating...</div>
-<div *ngIf="error">{{ error }}</div>
+<div class="error" *ngIf="error">{{ error }}</div>
 
 <div *ngIf="!loading && !error">
   <div>Total shifts: {{ summary.total_shifts }}</div>
