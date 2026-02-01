@@ -20,5 +20,11 @@
       [employeeId]="selectedEmployeeId"
       (changed)="onEmployeeUpdatedOrDeactivated()"
     ></app-employee-update-deactivate>
+
+    <app-employee-shifts
+      *ngIf="selectedEmployeeId"
+      [employeeId]="selectedEmployeeId"
+      (changed)="onShiftsChanged()"
+    ></app-employee-shifts>
   </main>
 </div>
