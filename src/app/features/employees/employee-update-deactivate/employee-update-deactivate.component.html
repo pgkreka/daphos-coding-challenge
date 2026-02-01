@@ -26,7 +26,11 @@
       {{ saving ? 'Saving...' : 'Save' }}
     </button>
 
-    <button (click)="deactivate()" [disabled]="saving || employee.status === 'inactive'">
+    <button
+      (click)="deactivate()"
+      [disabled]="saving || employee.status === 'inactive'"
+      [title]="employee.status === 'inactive' ? 'Employee is already inactive' : 'Deactivate employee'"
+    >
       Deactivate
     </button>
   </div>

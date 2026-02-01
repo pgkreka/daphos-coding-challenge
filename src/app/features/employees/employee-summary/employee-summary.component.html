@@ -5,7 +5,7 @@
 
 <div *ngIf="!loading && !error">
   <div>Total shifts: {{ summary.total_shifts }}</div>
-  <div>Total hours worked: {{ summary.total_hours_worked }}</div>
-  <div>Total break hours: {{ summary.total_break_hours }}</div>
-  <div>Average work length: {{ summary.average_work_length }}</div>
+  <div>Total hours worked: {{ summary.total_hours_worked | number:'1.2-2' }} hours</div>
+  <div>Total break hours: {{ summary.total_break_hours | number:'1.2-2' }} hours</div>
+  <div>Average work length: {{ summary.average_work_length | number:'1.2-2' }} hours</div>
 </div>

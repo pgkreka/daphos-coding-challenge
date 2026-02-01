@@ -3,6 +3,7 @@ import { Shift } from '../models/shift.model';
 import { ApiResult } from '../models/api-result.model';
 import { StorageService } from './storage.service';
 import { DAPHOS_SHIFTS_KEY } from '../constants/storage-keys';
+import { EmployeeService } from './employee.service';
 
 type CreateShiftInput = {
   employeeId: string;
@@ -21,7 +22,7 @@ type UpdateShiftInput = {
 
 @Injectable({ providedIn: 'root' })
 export class ShiftService {
-  constructor(private storage: StorageService) {}
+  constructor(private storage: StorageService, private employeeService: EmployeeService) {}
 
   async listByEmployeeId(employeeId: string): Promise<ApiResult<Shift[]>> {
     await this.simulateLatency();
@@ -34,8 +35,25 @@ export class ShiftService {
     return { ok: true, data: shifts };
   }
 
+  private async ensureEmployeeIsActive(employeeId: string): Promise<ApiResult<void>> {
+    const empResult = await this.employeeService.getById(employeeId);
+    if (!empResult.ok) return { ok: false, error: empResult.error };
+
+    const employee = empResult.data;
+    if (!employee) return { ok: false, error: { status: 404, message: 'Employee not found' } };
+
+    if (employee.status === 'inactive') {
+      return { ok: false, error: { status: 409, message: 'Employee is inactive' } };
+    }
+
+    return { ok: true, data: undefined };
+  }
+
   async create(input: CreateShiftInput): Promise<ApiResult<Shift>> {
     await this.simulateLatency();
+
+    const activeCheck = await this.ensureEmployeeIsActive(input.employeeId);
+    if (!activeCheck.ok) return activeCheck;
 
     const validation = this.validateShiftInput(input);
     if (!validation.ok) return validation;
@@ -68,6 +86,9 @@ export class ShiftService {
       return { ok: false, error: { status: 404, message: 'Shift not found' } };
     }
 
+    const activeCheck = await this.ensureEmployeeIsActive(shifts[idx].employeeId);  
+    if (!activeCheck.ok) return activeCheck;
+
     const updated: Shift = {
       ...shifts[idx],
       date: input.date,
@@ -90,6 +111,9 @@ export class ShiftService {
     if (idx === -1) {
       return { ok: false, error: { status: 404, message: 'Shift not found' } };
     }
+
+    const activeCheck = await this.ensureEmployeeIsActive(shifts[idx].employeeId);
+    if (!activeCheck.ok) return activeCheck;
 
     shifts.splice(idx, 1);
     this.writeAll(shifts);

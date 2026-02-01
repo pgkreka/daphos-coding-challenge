@@ -18,10 +18,13 @@ export class AddEmployeeComponent {
   loading = false;
   error: string | null = null;
 
+  fieldErrors: Record<string, string> = {};
+
   constructor(private employeeService: EmployeeService) {}
 
   async submit(): Promise<void> {
     this.error = null;
+    this.fieldErrors = {};
     this.loading = true;
 
     const result = await this.employeeService.create({
@@ -33,11 +36,13 @@ export class AddEmployeeComponent {
 
     if (!result.ok) {
       this.error = result.error.message;
+      this.fieldErrors = result.error.fieldErrors ?? {};
       return;
     }
 
     this.name = '';
     this.role = '';
+    this.fieldErrors = {};
 
     this.employeeCreated.emit();
   }

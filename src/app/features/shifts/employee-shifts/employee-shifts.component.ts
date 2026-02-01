@@ -15,6 +15,7 @@ type FieldErrors = Record<string, string>;
 })
 export class EmployeeShiftsComponent implements OnChanges {
   @Input() employeeId: string | null = null;
+  @Input() isEmployeeInactive = false;
   @Output() changed = new EventEmitter<void>();
 
   loading = false;
@@ -83,6 +84,7 @@ export class EmployeeShiftsComponent implements OnChanges {
   }
 
   async submit(): Promise<void> {
+    if (this.isEmployeeInactive) return;
     if (!this.employeeId) return;
 
     this.saving = true;
@@ -120,6 +122,7 @@ export class EmployeeShiftsComponent implements OnChanges {
   }
 
   async deleteShift(shiftId: string): Promise<void> {
+    if (this.isEmployeeInactive) return;
     if (!confirm('Delete this shift?')) return;
 
     this.saving = true;

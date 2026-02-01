@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { EmployeeService } from './core/services/employee.service';
+import { EmployeeStatus } from './core/models/employee.model';
 import { AddEmployeeComponent } from './features/employees/add-employee/add-employee.component';
 import { EmployeeListComponent } from './features/employees/employee-list/employee-list.component';
 import { EmployeeUpdateDeactivateComponent } from './features/employees/employee-update-deactivate/employee-update-deactivate.component';
@@ -21,21 +23,43 @@ import { EmployeeSummaryComponent } from './features/employees/employee-summary/
 })
 export class AppComponent {
   refreshToken = 0;
+
   selectedEmployeeId: string | null = null;
+  selectedEmployeeStatus: EmployeeStatus | null = null;
+
+  constructor(private employeeService: EmployeeService) {}
 
   onEmployeeCreated(): void {
     this.refreshToken++;
   }
 
-  onEmployeeSelected(id: string): void {
+  async onEmployeeSelected(id: string): Promise<void> {
     this.selectedEmployeeId = id;
+    await this.refreshSelectedEmployeeStatus();
   }
 
-  onEmployeeUpdatedOrDeactivated(): void {
+  async onEmployeeUpdatedOrDeactivated(): Promise<void> {
     this.refreshToken++;
+    await this.refreshSelectedEmployeeStatus();
   }
 
   onShiftsChanged(): void {
     this.refreshToken++;
+  }
+
+  private async refreshSelectedEmployeeStatus(): Promise<void> {
+    if (!this.selectedEmployeeId) {
+      this.selectedEmployeeStatus = null;
+      return;
+    }
+
+    const result = await this.employeeService.getById(this.selectedEmployeeId);
+
+    if (result.ok && result.data) {
+      this.selectedEmployeeStatus = result.data.status;
+      return;
+    }
+
+    this.selectedEmployeeStatus = null;
   }
 }
